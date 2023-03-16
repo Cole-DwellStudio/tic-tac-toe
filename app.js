@@ -79,7 +79,7 @@ const GameController = (() => {
   // active player defaults to the first player in the players array
   let activePlayer = players[0];
 
-  let winningPlayer;
+  let winningPlayer = "";
 
   // check if the active is the first player, if it is, change it to the second and vice versa
   const switchPlayerTurn = () => {
@@ -87,8 +87,9 @@ const GameController = (() => {
   };
 
   const checkWinner = () => {
-    let rowValues = [];
     board.getBoard().forEach((row) => {
+      var rowValues = [];
+      // var rowValues = [];
       row.forEach((cell) => {
         rowValues.push(cell.getToken());
       });
@@ -97,22 +98,23 @@ const GameController = (() => {
         rowValues.every((value, i, arr) => value === arr[0])
       ) {
         winningPlayer = activePlayer;
+        return;
       }
     });
-    if (
-      rowValues[0] !== "" &&
-      rowValues[0] == rowValues[4] &&
-      rowValues[0] == rowValues[8]
-    ) {
-      winningPlayer = activePlayer;
-    }
-    if (
-      rowValues[2] !== "" &&
-      rowValues[2] == rowValues[4] &&
-      rowValues[2] == rowValues[6]
-    ) {
-      winningPlayer = activePlayer;
-    }
+    // if (
+    //   rowValues[0] !== "" &&
+    //   rowValues[0] == rowValues[4] &&
+    //   rowValues[0] == rowValues[8]
+    // ) {
+    //   winningPlayer = activePlayer;
+    // }
+    // if (
+    //   rowValues[2] !== "" &&
+    //   rowValues[2] == rowValues[4] &&
+    //   rowValues[2] == rowValues[8]
+    // ) {
+    //   winningPlayer = activePlayer;
+    // }
   };
 
   const checkForTie = () => {
@@ -146,15 +148,16 @@ const GameController = (() => {
 
     checkWinner();
 
-    if (!winningPlayer) {
-      if (checkForTie()) {
-        alert("Game tied");
-        return;
-      }
-    }
+    // if (checkForTie()) {
+    //   alert("Game tied");
+    //   return;
+    // }
+    // if (!winningPlayer) {
+    // }
 
-    if (winningPlayer) {
+    if (winningPlayer !== "") {
       alert(`${winningPlayer.name} has won!`);
+      console.log("something something lol lol");
       return;
     }
 
@@ -162,7 +165,7 @@ const GameController = (() => {
   };
 
   const resetGame = () => {
-    winningPlayer = null;
+    winningPlayer = "";
     board.resetBoard();
   };
 
